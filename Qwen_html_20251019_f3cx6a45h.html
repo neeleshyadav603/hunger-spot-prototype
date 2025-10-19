@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hunger Spot Restaurant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        green: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .menu-item {
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .category-tab {
+            transition: all 0.3s ease;
+        }
+        .category-tab:hover {
+            background-color: #d1fae5;
+        }
+        .active-tab {
+            background-color: #16a34a;
+            color: white;
+        }
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+        .service-card {
+            transition: all 0.3s ease;
+        }
+        .service-card:hover {
+            background-color: #f0fdf4;
+        }
+        
+        /* Hero section with student image */
+        .hero-bg {
+            background-image: url('https://placehold.co/1920x800/2c3e50/ffffff?text=Students+Dining+at+Hunger+Spot');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Add hover effect for menu items */
+        .menu-item img {
+            transition: transform 0.3s ease;
+        }
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-4 md:mb-0">
+                    <div class="text-2xl font-bold text-green-800">Hunger Spot</div>
+                    <div class="ml-4 hidden md:block">
+                        <div class="flex space-x-6 text-sm">
+                            <a href="#home" class="hover:text-green-600 text-green-600 font-semibold">Home</a>
+                            <a href="#menu" class="hover:text-green-600 text-gray-700">Menu</a>
+                            <a href="#gallery" class="hover:text-green-600 text-gray-700">Gallery</a>
+                            <a href="#about" class="hover:text-green-600 text-gray-700">About Us</a>
+                            <a href="#contact" class="hover:text-green-600 text-gray-700">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-gray-600 mr-2"></i>
+                            <span class="text-sm">9044218214 / 8299707030</span>
+                        </div>
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            Order on Zomato
+                        </button>
+                    </div>
+                    
+                    <!-- Mobile menu button -->
+                    <button class="md:hidden text-gray-600" id="mobile-menu-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path id="close-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" style="display: none;" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div class="md:hidden pt-4 pb-4 border-t" id="mobile-menu" style="display: none;">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="block px-3 py-2 rounded-md bg-green-100 text-green-800">Home</a>
+                    <a href="#menu" class="block px-3 py-2 rounded-md text-gray-700">Menu</a>
+                    <a href="#gallery" class="block px-3 py-2 rounded-md text-gray-700">Gallery</a>
+                    <a href="#about" class="block px-3 py-2 rounded-md text-gray-700">About Us</a>
+                    <a href="#contact" class="block px-3 py-2 rounded-md text-gray-700">Contact</a>
+                    <div class="pt-2 flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-gray-600 mr-2"></i>
+                            <span class="text-sm">9044218214 / 8299707030</span>
+                        </div>
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            Order on Zomato
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen bg-gray-50">
+        <!-- Hero Section with student image -->
+        <section class="relative hero-bg text-white py-16 md:py-24">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0">
+                        <h1 class="text-4xl md:text-5xl font-bold mb-4">Hunger Spot: Beyond the boundaries of taste</h1>
+                        <p class="text-xl mb-8">Your new favorite spot in Raebareli for delicious multi-cuisine meals. Perfect for family dinners, kitty parties, birthdays, and more!</p>
+                        <div class="flex space-x-4">
+                            <a href="#menu" class="bg-white text-green-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors">View Our Full Menu</a>
+                            <button class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md font-semibold transition-colors">Order Now</button>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/600x400/2c3e50/ffffff?text=Students+Dining+at+Hunger+Spot" alt="Students Dining at Hunger Spot" class="rounded-lg shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Services Section -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 bg-gray-50 rounded-lg service-card">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-star text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Birthday Party</h3>
+                        <p class="text-gray-600">Celebrate your special day with us</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg service-card">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-heart text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Kitty Party</h3>
+                        <p class="text-gray-600">Perfect for girls' night out</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg service-card">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-check-circle text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Engagement Party</h3>
+                        <p class="text-gray-600">Celebrate love with delicious food</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg service-card">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-users text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Meetings</h3>
+                        <p class="text-gray-600">Business meetings with great food</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg service-card">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-home text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Family Restaurant</h3>
+                        <p class="text-gray-600">Quality time with your loved ones</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg service-card">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-shopping-cart text-3xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Order on Zomato</h3>
+                        <p class="text-gray-600">Convenient online ordering</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Special Offer Section -->
+        <section class="py-16 bg-green-50">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="md:flex">
+                        <div class="md:w-1/2">
+                            <img src="https://placehold.co/600x400/f39c12/ffffff?text=Paneer+Tiranga+Tikka" alt="Paneer Tiranga Tikka" class="w-full h-64 md:h-full object-cover">
+                        </div>
+                        <div class="md:w-1/2 p-8">
+                            <h2 class="text-2xl font-bold text-green-800 mb-4">Independence Day Special</h2>
+                            <h3 class="text-xl mb-4">Paneer Tiranga Tikka + Fries + Cold Drink</h3>
+                            <p class="text-2xl font-bold text-green-600 mb-4">Only at Rs. 199/-</p>
+                            <p class="mb-6">Celebrate India's Independence Day with our special offer! Enjoy our delicious Paneer Tiranga Tikka with crispy fries and a refreshing cold drink.</p>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-semibold transition-colors">Order Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- CTA Section -->
+        <section class="py-16 bg-green-800 text-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-4">Ready to Experience Delicious Food?</h2>
+                <p class="text-xl mb-8">Join us for an unforgettable dining experience</p>
+                <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#menu" class="bg-white text-green-800 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition-colors">View Our Full Menu</a>
+                    <button class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md font-semibold transition-colors">Book Your Table</button>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="min-h-screen bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center mb-8">Our Super Delicious Menu</h1>
+            
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center mb-8">
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-green-600 text-white category-tab active-tab" data-category="all">All</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="soups">Soups</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="starter">Starter</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="tikkaAndChaap">Tikka & Chaap</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="rolls">Rolls</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="chinese">Chinese</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="mainCourse">Main Course</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="vegDishes">Veg Dishes</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="dal">Dal</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="roti">Roti</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="kulche">Kulche</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="parathe">Parathe</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="rice">Rice</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="southIndian">South Indian</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="raitaSaladPapad">Raita, Salad, Papad</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="drinks">Drinks</button>
+                <button class="px-4 py-2 mx-1 my-1 rounded-md font-medium bg-gray-200 text-gray-800 category-tab" data-category="sweets">Sweets</button>
+            </div>
+            
+            <!-- Menu Items -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="menu-items">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="min-h-screen bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center mb-8">A Glimpse of Hunger Spot</h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/2c3e50/ffffff?text=Restaurant+Interior" alt="Restaurant Interior" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Restaurant Interior</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Seating+Area" alt="Seating Area" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Seating Area</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/9b59b6/ffffff?text=Decorated+Walls" alt="Decorated Walls" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Decorated Walls</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/3498db/ffffff?text=Front+Entrance" alt="Front Entrance" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Front Entrance</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/f39c12/ffffff?text=Paneer+Tiranga+Tikka" alt="Paneer Tiranga Tikka" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Paneer Tiranga Tikka</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/27ae60/ffffff?text=Family+Dining" alt="Family Dining" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Family Dining</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/8e44ad/ffffff?text=Party+Setup" alt="Party Setup" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Party Setup</p>
+                    </div>
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md gallery-item">
+                    <img src="https://placehold.co/600x400/d35400/ffffff?text=Kitchen+View" alt="Kitchen View" class="w-full h-64 object-cover">
+                    <div class="p-4 bg-white">
+                        <p class="text-sm text-gray-600">Kitchen View</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="min-h-screen bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center mb-8">Our Story</h1>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <img src="https://placehold.co/800x400/2c3e50/ffffff?text=Restaurant+Interior" alt="Restaurant Interior" class="w-full h-64 object-cover rounded-lg mb-6">
+                    
+                    <p class="text-lg mb-6">
+                        Welcome to Hunger Spot, Raebareli's go-to destination for mouth-watering food in a comfortable, family-friendly setting. We specialize in bringing you flavors 'beyond the boundaries of taste.' We recently moved from Degree College Chauraha and are now proudly serving you at our new location. We look forward to hosting your next meal!
+                    </p>
+                    
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                        <h3 class="text-xl font-semibold text-yellow-800 mb-2">We have moved! (July 2023)</h3>
+                        <p class="text-yellow-700">Find us at our new address: कचेहरी रोड, भोला वेज कार्नर के सामने, मौर्या जूस कार्नर के बगल में (बेसमेन्ट), रायबरेली</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4">Our Mission</h3>
+                            <p>To provide exceptional dining experiences with authentic flavors, fresh ingredients, and warm hospitality.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold mb-4">Our Vision</h3>
+                            <p>To become Raebareli's most beloved restaurant by consistently exceeding customer expectations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="min-h-screen bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold text-center mb-8">Get in Touch & Book Your Table</h1>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Contact Information -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold mb-6">Contact Info</h2>
+                    
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-start">
+                            <i class="fas fa-phone text-green-600 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Phone</p>
+                                <a href="tel:9044218214" class="text-blue-600 hover:underline">9044218214</a><br>
+                                <a href="tel:8299707030" class="text-blue-600 hover:underline">8299707030</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-green-600 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Address</p>
+                                <p>कचेहरी रोड, भोला वेज कार्नर के सामने, मौर्या जूस कार्नर के बगल में (बेसमेन्ट), रायबरेली</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-clock text-green-600 mr-3 mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Opening Hours</p>
+                                <p>Monday - Sunday: 11:00 AM - 11:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Google Map Placeholder -->
+                    <div class="bg-gray-200 rounded-lg h-64 flex items-center justify-center">
+                        <div class="text-center">
+                            <i class="fas fa-map-marker-alt text-green-600 text-4xl mx-auto mb-2"></i>
+                            <p class="text-gray-600">Google Map will be embedded here</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reservation Form -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold mb-6">Make a Reservation</h2>
+                    
+                    <form id="reservation-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                            <input type="text" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" placeholder="Your full name">
+                            <p class="mt-1 text-sm text-red-600 hidden" id="name-error"></p>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" name="phone" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500" placeholder="Your phone number">
+                            <p class="mt-1 text-sm text-red-600 hidden" id="phone-error"></p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                <input type="date" name="date" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                <p class="mt-1 text-sm text-red-600 hidden" id="date-error"></p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Time</label>
+                                <input type="time" name="time" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                <p class="mt-1 text-sm text-red-600 hidden" id="time-error"></p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Number of Guests</label>
+                            <select name="guests" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                                <option value="">Select number of guests</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10+</option>
+                            </select>
+                            <p class="mt-1 text-sm text-red-600 hidden" id="guests-error"></p>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md font-medium transition-colors">Book Your Table</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-8 pb-6">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Hunger Spot</h3>
+                    <p class="text-gray-300 mb-4">Beyond the boundaries of taste</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white">Home</a></li>
+                        <li><a href="#menu" class="text-gray-300 hover:text-white">Menu</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-white">Gallery</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Contact Info</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i>
+                            <span>9044218214 / 8299707030</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-map-marker-alt mr-2 mt-1"></i>
+                            <span>कचेहरी रोड, भोला वेज कार्नर के सामने, मौर्या जूस कार्नर के बगल में (बेसमेन्ट), रायबरेली</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Order Online</h4>
+                    <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md font-medium transition-colors w-full">
+                        Order on Zomato
+                    </button>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-4 text-center text-gray-400">
+                <p>&copy; 2024 Hunger Spot Restaurant. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+            
+            if (mobileMenu.style.display === 'none' || mobileMenu.style.display === '') {
+                mobileMenu.style.display = 'block';
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                mobileMenu.style.display = 'none';
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active navigation
+                    document.querySelectorAll('nav a').forEach(navLink => {
+                        navLink.classList.remove('text-green-600', 'font-semibold');
+                        navLink.classList.add('text-gray-700');
+                    });
+                    this.classList.remove('text-gray-700');
+                    this.classList.add('text-green-600', 'font-semibold');
+                }
+            });
+        });
+
+        // Menu category filtering
+        const menuItems = {
+            soups: [
+                { name: "Veg soup", price: 90, description: "Classic vegetable soup", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Soup" },
+                { name: "Veg sweet corn soup", price: 100, description: "Sweet corn with vegetables", image: "https://placehold.co/300x200/FF9800/ffffff?text=Sweet+Corn+Soup" },
+                { name: "Veg mushroom soup", price: 110, description: "Creamy mushroom soup", image: "https://placehold.co/300x200/795548/ffffff?text=Mushroom+Soup" },
+                { name: "Cream of mushroom soup", price: 120, description: "Rich cream mushroom soup", image: "https://placehold.co/300x200/607D8B/ffffff?text=Cream+Mushroom+Soup" },
+                { name: "Tomato soup", price: 90, description: "Fresh tomato soup", image: "https://placehold.co/300x200/E91E63/ffffff?text=Tomato+Soup" },
+                { name: "Cream of tomato soup", price: 105, description: "Creamy tomato soup", image: "https://placehold.co/300x200/F44336/ffffff?text=Cream+Tomato+Soup" },
+                { name: "Lemon Coriander Soup", price: 120, description: "Zesty lemon coriander soup", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Lemon+Coriander+Soup" },
+                { name: "Sweet Corn Soup", price: 110, description: "Sweet corn with vegetables", image: "https://placehold.co/300x200/FFC107/ffffff?text=Sweet+Corn+Soup" },
+                { name: "Hot and Sour Soup", price: 120, description: "Spicy and tangy soup", image: "https://placehold.co/300x200/9C27B0/ffffff?text=Hot+Sour+Soup" }
+            ],
+            starter: [
+                { name: "Hara Bhara Kabab", price: 120, description: "Green vegetable kabab", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Hara+Bhara+Kabab" },
+                { name: "Finger chips", price: 70, description: "Crispy potato fingers", image: "https://placehold.co/300x200/FF9800/ffffff?text=Finger+Chips" },
+                { name: "Honey chilli potato", price: 140, description: "Sweet and spicy potatoes", image: "https://placehold.co/300x200/FF5722/ffffff?text=Honey+Chilli+Potato" },
+                { name: "Chilli Potato", price: 120, description: "Spicy fried potatoes", image: "https://placehold.co/300x200/FF9800/ffffff?text=Chilli+Potato" },
+                { name: "Spring Roll", price: 110, description: "Crispy spring rolls", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Spring+Roll" },
+                { name: "Veg Burger", price: 50, description: "Vegetable burger", image: "https://placehold.co/300x200/795548/ffffff?text=Veg+Burger" },
+                { name: "Cheese Burger", price: 90, description: "Cheeseburger with veggies", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Cheese+Burger" },
+                { name: "Paneer Burger", price: 70, description: "Paneer cheeseburger", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Burger" },
+                { name: "Veg Cutlet", price: 70, description: "Crispy vegetable cutlet", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Cutlet" },
+                { name: "Paneer cutlet", price: 90, description: "Paneer stuffed cutlet", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Cutlet" },
+                { name: "Pav bhaji", price: 120, description: "Spicy vegetable mash", image: "https://placehold.co/300x200/E91E63/ffffff?text=Pav+Bhaji" },
+                { name: "Paneer Pakoda", price: 80, description: "Fried paneer fritters", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Pakoda" },
+                { name: "Onion Pakoda", price: 60, description: "Crispy onion fritters", image: "https://placehold.co/300x200/795548/ffffff?text=Onion+Pakoda" },
+                { name: "Chole Bhature", price: 90, description: "Spicy chickpeas with bread", image: "https://placehold.co/300x200/F44336/ffffff?text=Chole+Bhature" }
+            ],
+            tikkaAndChaap: [
+                { name: "Paneer Tikka", price: 180, description: "Marinated paneer grilled", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Tikka" },
+                { name: "Paneer Hariyali Tikka", price: 175, description: "Herb-infused paneer tikka", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Hariyali+Tikka" },
+                { name: "Paneer Peshawari Tikka", price: 200, description: "Nuts and cream paneer tikka", image: "https://placehold.co/300x200/FFC107/ffffff?text=Peshawari+Tikka" },
+                { name: "Paneer Malai Tikka", price: 250, description: "Creamy paneer tikka", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Malai+Tikka" },
+                { name: "Paneer Boti Tikka", price: 210, description: "Spiced paneer chunks", image: "https://placehold.co/300x200/FF9800/ffffff?text=Boti+Tikka" },
+                { name: "Paneer Seekh Kabab", price: 230, description: "Minced paneer skewers", image: "https://placehold.co/300x200/FF5722/ffffff?text=Seekh+Kabab" },
+                { name: "Paneer banjara tikka", price: 240, description: "Spicy paneer tikka", image: "https://placehold.co/300x200/FF9800/ffffff?text=Banjara+Tikka" },
+                { name: "Paneer Achari Tikka", price: 170, description: "Pickled flavor paneer", image: "https://placehold.co/300x200/FFC107/ffffff?text=Achari+Tikka" },
+                { name: "Mashroom Tikka", price: 160, description: "Grilled mushrooms", image: "https://placehold.co/300x200/795548/ffffff?text=Mushroom+Tikka" },
+                { name: "Mashroom Malai Tikka", price: 180, description: "Creamy mushroom tikka", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Malai+Mushroom" },
+                { name: "Soya Chaap Tikka", price: 180, description: "Soya chunks tikka", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Soya+Chaap" },
+                { name: "Soya Malai Chaap", price: 190, description: "Creamy soya chaap", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Malai+Soya" },
+                { name: "Peshawari Chaap", price: 170, description: "Nuts and cream soya", image: "https://placehold.co/300x200/FFC107/ffffff?text=Peshawari+Chaap" },
+                { name: "Hariyali Chaap", price: 175, description: "Herb-infused soya", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Hariyali+Chaap" },
+                { name: "Tandoori Hara Bhara Kabab", price: 160, description: "Green vegetable kabab", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Tandoori+Kabab" }
+            ],
+            rolls: [
+                { name: "Paneer Roll", price: 120, description: "Paneer wrapped in bread", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Roll" },
+                { name: "Paneer Chilli Roll", price: 150, description: "Spicy paneer roll", image: "https://placehold.co/300x200/FF5722/ffffff?text=Chilli+Roll" },
+                { name: "Veg Kathi Roll", price: 130, description: "Vegetable kathi roll", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Kathi+Roll" }
+            ],
+            chinese: [
+                { name: "Garlic Noodles", price: 190, description: "Garlic flavored noodles", image: "https://placehold.co/300x200/FF9800/ffffff?text=Garlic+Noodles" },
+                { name: "Hakka Noodles", price: 190, description: "Spicy Hakka noodles", image: "https://placehold.co/300x200/FF5722/ffffff?text=Hakka+Noodles" },
+                { name: "Chinese Hot Cocktail", price: 290, description: "Spicy Chinese appetizer", image: "https://placehold.co/300x200/FF5722/ffffff?text=Hot+Cocktail" },
+                { name: "Veg Chowmein", price: 130, halfPrice: 80, description: "Stir-fried noodles", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Chowmein" },
+                { name: "Paneer Chowmein", price: 160, halfPrice: 90, description: "Paneer with noodles", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Chowmein" },
+                { name: "Mushroom chowmein", price: 160, halfPrice: 90, description: "Mushrooms with noodles", image: "https://placehold.co/300x200/795548/ffffff?text=Mushroom+Chowmein" },
+                { name: "Kashmiri Chowmein", price: 170, description: "Spicy Kashmiri noodles", image: "https://placehold.co/300x200/FFC107/ffffff?text=Kashmiri+Chowmein" },
+                { name: "Special Chowmein", price: 200, description: "Special mixed noodles", image: "https://placehold.co/300x200/FF9800/ffffff?text=Special+Chowmein" },
+                { name: "Paneer Chilli Gravy", price: 200, halfPrice: 110, description: "Paneer in chili gravy", image: "https://placehold.co/300x200/FF5722/ffffff?text=Paneer+Chilli+Gravy" },
+                { name: "Paneer Chilli dry", price: 220, description: "Dry paneer chili", image: "https://placehold.co/300x200/FF5722/ffffff?text=Paneer+Chilli+Dry" },
+                { name: "Mushroom Chilli Gravy", price: 200, description: "Mushroom in chili gravy", image: "https://placehold.co/300x200/FF5722/ffffff?text=Mushroom+Chilli" },
+                { name: "Mushroom Chilli Dry", price: 210, description: "Dry mushroom chili", image: "https://placehold.co/300x200/FF5722/ffffff?text=Mushroom+Chilli+Dry" },
+                { name: "Veg Manchurian Gravy", price: 170, halfPrice: 95, description: "Vegetable manchurian", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Manchurian" },
+                { name: "Veg Manchurian Dry", price: 190, description: "Dry vegetable manchurian", image: "https://placehold.co/300x200/FF5722/ffffff?text=Veg+Manchurian+Dry" },
+                { name: "Chilli Noodles", price: 180, description: "Spicy chili noodles", image: "https://placehold.co/300x200/FF5722/ffffff?text=Chilli+Noodles" },
+                { name: "Veg chopusey", price: 180, description: "Vegetable chop suey", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Chop+Suey" },
+                { name: "Singapuri Noodles", price: 180, description: "Singapore style noodles", image: "https://placehold.co/300x200/FFC107/ffffff?text=Singapuri+Noodles" },
+                { name: "Schezwan Noodles", price: 190, description: "Spicy Schezwan noodles", image: "https://placehold.co/300x200/FF5722/ffffff?text=Schezwan+Noodles" },
+                { name: "Paneer Schezwan Noodles", price: 200, description: "Paneer Schezwan noodles", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Schezwan" },
+                { name: "Mushroom Manchurian Gravy", price: 170, description: "Mushroom manchurian", image: "https://placehold.co/300x200/FF5722/ffffff?text=Mushroom+Manchurian" },
+                { name: "Paneer Manchurian gravy", price: 200, description: "Paneer manchurian", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Manchurian" },
+                { name: "Veg Fried Rice", price: 140, description: "Vegetable fried rice", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Fried+Rice" },
+                { name: "Paneer Fried Rice", price: 150, description: "Paneer fried rice", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Fried+Rice" },
+                { name: "Mushroom Fried Rice", price: 160, description: "Mushroom fried rice", image: "https://placehold.co/300x200/795548/ffffff?text=Mushroom+Fried+Rice" },
+                { name: "Mixed Fried Rice", price: 170, description: "Mixed vegetable rice", image: "https://placehold.co/300x200/FF9800/ffffff?text=Mixed+Fried+Rice" },
+                { name: "Paneer 65", price: 210, description: "Spicy paneer 65", image: "https://placehold.co/300x200/FF5722/ffffff?text=Paneer+65" }
+            ],
+            mainCourse: [
+                { name: "Hungerspot Signature", price: 270, description: "Our signature dish", image: "https://placehold.co/300x200/FF9800/ffffff?text=Signature+Dish" },
+                { name: "Matar paneer", price: 200, halfPrice: 110, description: "Peas with paneer", image: "https://placehold.co/300x200/FF9800/ffffff?text=Matar+Paneer" },
+                { name: "Paneer butter masala", price: 210, halfPrice: 115, description: "Creamy paneer curry", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Paneer+Butter+Masala" },
+                { name: "Kadai paneer", price: 240, halfPrice: 130, description: "Spicy paneer curry", image: "https://placehold.co/300x200/FF5722/ffffff?text=Kadai+Paneer" },
+                { name: "Paneer do pyaza", price: 220, description: "Paneer with onions", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Do+Pyaza" },
+                { name: "Paneer Lababdar", price: 230, description: "Rich paneer curry", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Paneer+Lababdar" },
+                { name: "Paneer tikka masala", price: 270, description: "Paneer tikka in gravy", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Tikka+Masala" },
+                { name: "Paneer Maharaja", price: 270, description: "Royal paneer dish", image: "https://placehold.co/300x200/FFC107/ffffff?text=Paneer+Maharaja" },
+                { name: "Handi paneer", price: 220, description: "Clay pot paneer", image: "https://placehold.co/300x200/FF9800/ffffff?text=Handi+Paneer" },
+                { name: "Paneer kaju masala", price: 250, description: "Paneer with cashews", image: "https://placehold.co/300x200/FFC107/ffffff?text=Paneer+Kaju+Masala" },
+                { name: "Tiranga Paneer", price: 280, description: "Tricolor paneer dish", image: "https://placehold.co/300x200/FF9800/ffffff?text=Tiranga+Paneer" },
+                { name: "Hyderabadi Paneer", price: 250, description: "Hyderabadi style paneer", image: "https://placehold.co/300x200/FFC107/ffffff?text=Hyderabadi+Paneer" },
+                { name: "Palak paneer", price: 250, description: "Spinach with paneer", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Palak+Paneer" },
+                { name: "Paneer Ujala", price: 270, description: "Light paneer dish", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Paneer+Ujala" },
+                { name: "Malai kofta", price: 240, description: "Creamy vegetable balls", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Malai+Kofta" },
+                { name: "Navrangi Kofta", price: 250, description: "Colorful vegetable balls", image: "https://placehold.co/300x200/FF9800/ffffff?text=Navrangi+Kofta" },
+                { name: "Veg Kofta", price: 230, description: "Vegetable balls", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Kofta" },
+                { name: "Aloo Dum", price: 210, description: "Potatoes in gravy", image: "https://placehold.co/300x200/FF9800/ffffff?text=Aloo+Dum" },
+                { name: "Kashmiri Dum Aloo", price: 240, description: "Kashmiri style potatoes", image: "https://placehold.co/300x200/FFC107/ffffff?text=Kashmiri+Aloo" },
+                { name: "Matar Mushroom", price: 280, halfPrice: 150, description: "Peas with mushrooms", image: "https://placehold.co/300x200/795548/ffffff?text=Matar+Mushroom" },
+                { name: "Mushroom Bhujia", price: 240, description: "Crispy mushroom dish", image: "https://placehold.co/300x200/FF5722/ffffff?text=Mushroom+Bhujia" },
+                { name: "Mushroom Kaleji", price: 220, description: "Mushroom liver dish", image: "https://placehold.co/300x200/795548/ffffff?text=Mushroom+Kaleji" },
+                { name: "Mushroom Do Pyaza", price: 220, description: "Mushroom with onions", image: "https://placehold.co/300x200/795548/ffffff?text=Mushroom+Do+Pyaza" }
+            ],
+            vegDishes: [
+                { name: "Mix Veg", price: 160, description: "Mixed vegetables", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Mix+Veg" },
+                { name: "Soya Methi Mix", price: 150, description: "Soya with fenugreek", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Soya+Methi" },
+                { name: "Bhindi masala", price: 160, description: "Okra curry", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Bhindi+Masala" },
+                { name: "Dehati Curry", price: 160, description: "Rural style curry", image: "https://placehold.co/300x200/FF9800/ffffff?text=Dehati+Curry" },
+                { name: "Jeera aloo", price: 140, description: "Cumin potatoes", image: "https://placehold.co/300x200/FF9800/ffffff?text=Jeera+Aloo" }
+            ],
+            dal: [
+                { name: "Plain Dal", price: 90, description: "Simple lentil curry", image: "https://placehold.co/300x200/FF9800/ffffff?text=Plain+Dal" },
+                { name: "Dal Fry", price: 110, description: "Spiced lentil curry", image: "https://placehold.co/300x200/FF5722/ffffff?text=Dal+Fry" },
+                { name: "Dal Makhani", price: 170, description: "Butter lentil curry", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Dal+Makhani" },
+                { name: "Butter dal fry", price: 130, description: "Buttery lentil curry", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Butter+Dal" },
+                { name: "Dal Tadka", price: 120, description: "Tempered lentil curry", image: "https://placehold.co/300x200/FF9800/ffffff?text=Dal+Tadka" }
+            ],
+            roti: [
+                { name: "Plain Roti", price: 10, description: "Simple wheat bread", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Plain+Roti" },
+                { name: "Butter Roti", price: 15, description: "Buttered wheat bread", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Butter+Roti" },
+                { name: "Missi Roti", price: 35, description: "Spiced wheat bread", image: "https://placehold.co/300x200/FF9800/ffffff?text=Missi+Roti" },
+                { name: "Plain Naan", price: 35, description: "Leavened bread", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Plain+Naan" },
+                { name: "Butter Naan", price: 45, description: "Buttered naan", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Butter+Naan" },
+                { name: "Garlic Naan", price: 50, description: "Garlic flavored naan", image: "https://placehold.co/300x200/FF9800/ffffff?text=Garlic+Naan" },
+                { name: "Kashmiri Naan", price: 260, description: "Kashmiri style naan", image: "https://placehold.co/300x200/FFC107/ffffff?text=Kashmiri+Naan" },
+                { name: "Family Naan", price: 200, description: "Large family naan", image: "https://placehold.co/300x200/FF9800/ffffff?text=Family+Naan" },
+                { name: "Stuffed Naan", price: 60, description: "Stuffed naan", image: "https://placehold.co/300x200/FF9800/ffffff?text=Stuffed+Naan" },
+                { name: "Lachha Paratha", price: 40, description: "Layered paratha", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Lachha+Paratha" }
+            ],
+            kulche: [
+                { name: "Amritsari Kulcha", price: 80, description: "Amritsari style bread", image: "https://placehold.co/300x200/FFC107/ffffff?text=Amritsari+Kulcha" },
+                { name: "Paneer Kulcha", price: 75, description: "Paneer stuffed bread", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Kulcha" },
+                { name: "Cheese Kulcha", price: 90, description: "Cheese stuffed bread", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Cheese+Kulcha" },
+                { name: "Veg Kulcha", price: 50, description: "Vegetable stuffed bread", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Veg+Kulcha" },
+                { name: "Potato Kulcha", price: 45, description: "Potato stuffed bread", image: "https://placehold.co/300x200/FF9800/ffffff?text=Potato+Kulcha" },
+                { name: "Keema Kulcha", price: 40, description: "Minced meat bread", image: "https://placehold.co/300x200/FF5722/ffffff?text=Keema+Kulcha" }
+            ],
+            parathe: [
+                { name: "Aloo Paratha", price: 50, description: "Potato stuffed paratha", image: "https://placehold.co/300x200/FF9800/ffffff?text=Aloo+Paratha" },
+                { name: "Paneer Paratha", price: 80, description: "Paneer stuffed paratha", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Paratha" }
+            ],
+            rice: [
+                { name: "Plain Rice", price: 100, halfPrice: 60, description: "Steamed rice", image: "https://placehold.co/300x200/FF9800/ffffff?text=Plain+Rice" },
+                { name: "Jeera Rice", price: 120, description: "Cumin flavored rice", image: "https://placehold.co/300x200/FF9800/ffffff?text=Jeera+Rice" },
+                { name: "Kaju pulao", price: 160, description: "Cashew nut rice", image: "https://placehold.co/300x200/FFC107/ffffff?text=Kaju+Pulao" },
+                { name: "Paneer Rice", price: 150, description: "Paneer rice", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Rice" },
+                { name: "Matar Pulao", price: 120, description: "Peas rice", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Matar+Pulao" },
+                { name: "Paneer Mix Pulao", price: 160, description: "Mixed paneer rice", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Mix+Pulao" },
+                { name: "Veg Biryani", price: 180, description: "Vegetable biryani", image: "https://placehold.co/300x200/FF9800/ffffff?text=Veg+Biryani" }
+            ],
+            southIndian: [
+                { name: "Plain Dosa", price: 90, description: "Crispy rice crepe", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Plain+Dosa" },
+                { name: "Rava Dosa", price: 140, description: "Semolina dosa", image: "https://placehold.co/300x200/FF9800/ffffff?text=Rava+Dosa" },
+                { name: "Masala Dosa", price: 120, description: "Spiced potato dosa", image: "https://placehold.co/300x200/FF9800/ffffff?text=Masala+Dosa" },
+                { name: "Paneer Dosa", price: 140, description: "Paneer stuffed dosa", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Dosa" },
+                { name: "Special Dosa", price: 180, description: "Special dosa", image: "https://placehold.co/300x200/FF9800/ffffff?text=Special+Dosa" },
+                { name: "Uttapam", price: 130, description: "Thick savory pancake", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Uttapam" },
+                { name: "Paneer Uttapam", price: 150, description: "Paneer stuffed uttapam", image: "https://placehold.co/300x200/FF9800/ffffff?text=Paneer+Uttapam" },
+                { name: "Onion Uttapam", price: 120, description: "Onion uttapam", image: "https://placehold.co/300x200/FF9800/ffffff?text=Onion+Uttapam" },
+                { name: "Special Uttapam", price: 180, description: "Special uttapam", image: "https://placehold.co/300x200/FF9800/ffffff?text=Special+Uttapam" },
+                { name: "Tomato Uttapam", price: 120, description: "Tomato uttapam", image: "https://placehold.co/300x200/E91E63/ffffff?text=Tomato+Uttapam" }
+            ],
+            raitaSaladPapad: [
+                { name: "Plain Dahi", price: 45, description: "Plain yogurt", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Plain+Dahi" },
+                { name: "Plain Raita", price: 50, description: "Yogurt with spices", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Plain+Raita" },
+                { name: "Bundi Raita", price: 80, description: "Yogurt with fried balls", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Bundi+Raita" },
+                { name: "Mix Raita", price: 90, description: "Mixed vegetable raita", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Mix+Raita" },
+                { name: "Kheera Raita", price: 70, description: "Cucumber raita", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Kheera+Raita" },
+                { name: "Green Salad", price: 50, description: "Mixed green salad", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Green+Salad" },
+                { name: "Onion Salad", price: 40, description: "Onion salad", image: "https://placehold.co/300x200/FF9800/ffffff?text=Onion+Salad" },
+                { name: "Kheera Salad", price: 40, description: "Cucumber salad", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Kheera+Salad" },
+                { name: "Papad Dry", price: 10, description: "Dry papad", image: "https://placehold.co/300x200/8BC34A/ffffff?text=Papad+Dry" },
+                { name: "Papad Fry", price: 10, description: "Fried papad", image: "https://placehold.co/300x200/FF9800/ffffff?text=Papad+Fry" },
+                { name: "Masala Papad", price: 30, description: "Spiced papad", image: "https://placehold.co/300x200/FF5722/ffffff?text=Masala+Papad" }
+            ],
+            drinks: [
+                { name: "Tea", price: 25, description: "Hot tea", image: "https://placehold.co/300x200/795548/ffffff?text=Tea" },
+                { name: "Coffee", price: 50, description: "Hot coffee", image: "https://placehold.co/300x200/795548/ffffff?text=Coffee" },
+                { name: "Cold Drink", price: "MRP", description: "Soft drinks", image: "https://placehold.co/300x200/FF5722/ffffff?text=Cold+Drink" },
+                { name: "Mineral water", price: 20, description: "Bottled water", image: "https://placehold.co/300x200/4CAF50/ffffff?text=Mineral+Water" },
+                { name: "Lassi", price: 70, description: "Sweet yogurt drink", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Lassi" }
+            ],
+            sweets: [
+                { name: "Gulab Jamun", price: 25, description: "Sweet milk balls", image: "https://placehold.co/300x200/E91E63/ffffff?text=Gulab+Jamun" },
+                { name: "Vanila Ice Cream", price: 30, description: "Vanilla ice cream", image: "https://placehold.co/300x200/FFEB3B/ffffff?text=Vanilla+Ice+Cream" },
+                { name: "Butterscotch Ice Cream", price: 40, description: "Butterscotch ice cream", image: "https://placehold.co/300x200/FFC107/ffffff?text=Butterscotch+Ice+Cream" },
+                { name: "Chocolate Ice Cream", price: 45, description: "Chocolate ice cream", image: "https://placehold.co/300x200/795548/ffffff?text=Chocolate+Ice+Cream" }
+            ]
+        };
+
+        // Categories array
+        const categories = [
+            { id: 'all', name: 'All' },
+            { id: 'soups', name: 'Soups' },
+            { id: 'starter', name: 'Starter' },
+            { id: 'tikkaAndChaap', name: 'Tikka & Chaap' },
+            { id: 'rolls', name: 'Rolls' },
+            { id: 'chinese', name: 'Chinese' },
+            { id: 'mainCourse', name: 'Main Course' },
+            { id: 'vegDishes', name: 'Veg Dishes' },
+            { id: 'dal', name: 'Dal' },
+            { id: 'roti', name: 'Roti' },
+            { id: 'kulche', name: 'Kulche' },
+            { id: 'parathe', name: 'Parathe' },
+            { id: 'rice', name: 'Rice' },
+            { id: 'southIndian', name: 'South Indian' },
+            { id: 'raitaSaladPapad', name: 'Raita, Salad, Papad' },
+            { id: 'drinks', name: 'Drinks' },
+            { id: 'sweets', name: 'Sweets' }
+        ];
+
+        // Category tab click handler
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Update active tab
+                document.querySelectorAll('.category-tab').forEach(t => {
+                    t.classList.remove('bg-green-600', 'text-white', 'active-tab');
+                    t.classList.add('bg-gray-200', 'text-gray-800');
+                });
+                this.classList.remove('bg-gray-200', 'text-gray-800');
+                this.classList.add('bg-green-600', 'text-white', 'active-tab');
+                
+                // Filter menu items
+                let itemsToShow = [];
+                if (category === 'all') {
+                    itemsToShow = Object.values(menuItems).flat();
+                } else {
+                    itemsToShow = menuItems[category] || [];
+                }
+                
+                // Render menu items
+                const menuItemsContainer = document.getElementById('menu-items');
+                menuItemsContainer.innerHTML = '';
+                
+                itemsToShow.forEach(item => {
+                    const menuItemHTML = `
+                        <div class="bg-white rounded-lg shadow-md p-6 menu-item">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-xl font-semibold">${item.name}</h3>
+                                <span class="text-green-600 font-bold">
+                                    ₹${item.price === 'MRP' ? item.price : item.price}
+                                    ${item.halfPrice ? ` / ₹${item.halfPrice}` : ''}
+                                </span>
+                            </div>
+                            <img src="${item.image}" alt="${item.name}" class="w-full h-40 object-cover rounded-md mb-4">
+                            <p class="text-gray-600 text-sm mb-4">${item.description}</p>
+                            <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                                Add to Cart
+                            </button>
+                        </div>
+                    `;
+                    menuItemsContainer.innerHTML += menuItemHTML;
+                });
+            });
+        });
+
+        // Initialize with all items
+        window.onload = function() {
+            const allItems = Object.values(menuItems).flat();
+            const menuItemsContainer = document.getElementById('menu-items');
+            
+            allItems.forEach(item => {
+                const menuItemHTML = `
+                    <div class="bg-white rounded-lg shadow-md p-6 menu-item">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-semibold">${item.name}</h3>
+                            <span class="text-green-600 font-bold">
+                                ₹${item.price === 'MRP' ? item.price : item.price}
+                                ${item.halfPrice ? ` / ₹${item.halfPrice}` : ''}
+                            </span>
+                        </div>
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-40 object-cover rounded-md mb-4">
+                        <p class="text-gray-600 text-sm mb-4">${item.description}</p>
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                            Add to Cart
+                        </button>
+                    </div>
+                `;
+                menuItemsContainer.innerHTML += menuItemHTML;
+            });
+        };
+
+        // Form validation
+        document.getElementById('reservation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear previous errors
+            document.querySelectorAll('.text-red-600').forEach(el => el.classList.add('hidden'));
+            
+            const name = this.name.value.trim();
+            const phone = this.phone.value.trim();
+            const date = this.date.value;
+            const time = this.time.value;
+            const guests = this.guests.value;
+            
+            let hasError = false;
+            
+            if (!name) {
+                document.getElementById('name-error').textContent = 'Name is required';
+                document.getElementById('name-error').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (!phone) {
+                document.getElementById('phone-error').textContent = 'Phone number is required';
+                document.getElementById('phone-error').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (!date) {
+                document.getElementById('date-error').textContent = 'Date is required';
+                document.getElementById('date-error').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (!time) {
+                document.getElementById('time-error').textContent = 'Time is required';
+                document.getElementById('time-error').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (!guests) {
+                document.getElementById('guests-error').textContent = 'Number of guests is required';
+                document.getElementById('guests-error').classList.remove('hidden');
+                hasError = true;
+            }
+            
+            if (!hasError) {
+                // Simulate form submission
+                const submitButton = this.querySelector('button[type="submit"]');
+                submitButton.textContent = 'Submitting...';
+                submitButton.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Your reservation has been successfully submitted!');
+                    this.reset();
+                    submitButton.textContent = 'Book Your Table';
+                    submitButton.disabled = false;
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
